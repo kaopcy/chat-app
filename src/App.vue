@@ -1,30 +1,55 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <Navbar/>
+  <div class="app">
   </div>
-  <router-view/>
+  <router-view ></router-view>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { watch , onMounted , } from 'vue'
+import { useRoute } from 'vue-router'
+import Navbar from './components/Navbar.vue'
+import store from './store'
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components:{ Navbar },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  setup( ) {
+    const route = useRoute()
+    const $store = store
+    watch( route , ()=>{
+      console.log( $store.getters.mobile );
+    } )
+    
+    const checkWindowSize = ()=>{ 
+      if(window.innerWidth < 680) $store.commit('setMobile' , true)
+      else $store.commit('setMobile' , false)
     }
+    onMounted(() => {
+      checkWindowSize()
+      window.addEventListener('resize' , ()=> { 
+        checkWindowSize()
+      })  
+    })
+
+    
+
+    return {  }
   }
+}
+</script>
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,200');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;500&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #191919;
 }
 </style>
