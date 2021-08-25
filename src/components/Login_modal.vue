@@ -160,6 +160,7 @@ button{
     
     
     form{
+        
         width: 100%;
         height: 100%;
         z-index: 21;
@@ -168,6 +169,9 @@ button{
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        h1{
+            margin-bottom: 2rem;
+        }
         input{
             &:active{
                 outline: 2px solid #000;
@@ -181,7 +185,6 @@ button{
             border-radius: 10px;
             background-color: rgb(199, 199, 199);
         }
-        
     }
     .btn{
         margin-top: 1rem;
@@ -208,12 +211,18 @@ button{
         z-index: 22;
         height: 100%;
         position: absolute;
-        transition: transform .5s ease-in-out;
+        transition: all .5s ease-in-out;
         top: 0;
         left: 0;
         background-color: #242424;
         display: flex;
         justify-content: center;
+        &.right{
+            transform: translateX(100%);
+        }
+        &.left{
+            transform: translateX(0%);
+        }
         .panel-info{
             position: relative;
             height: 100%;
@@ -237,12 +246,7 @@ button{
             
         }
     }
-    .right{
-        transform: translateX(100%);
-    }
-    .left{
-        transform: translateX(0%);
-    }
+    
 
     @keyframes inandout {
         0%{
